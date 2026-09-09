@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>麻将翻翻乐派对</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Mahjong Memory Party</p>
+        <h1>麻将翻翻乐派对</h1>
+        <p class="subtitle">1–4 人实时联机 · 支持单人测试 · 配对成功继续行动</p>
+      </div>
+      <div class="mascot" aria-hidden="true">🀄</div>
+    </header>
+
+    <main id="app" class="app-card"></main>
+  </div>
+
+  <template id="landing-template">
+    <section class="landing-grid">
+      <div class="panel intro-panel">
+        <span class="pill">可爱麻将主题</span>
+        <h2>开一个房间，叫朋友来记牌。</h2>
+        <p>不用注册，输入昵称即可。断线后用同一个浏览器重新进入房间，可以回到原座位。</p>
+        <div class="feature-row">
+          <span>🧁 透视</span>
+          <span>🍀 提示</span>
+          <span>🧊 冻结</span>
+        </div>
+      </div>
+
+      <div class="panel action-panel">
+        <label>
+          昵称
+          <input id="nameInput" maxlength="16" placeholder="例如：小麻将" autocomplete="nickname" />
+        </label>
+        <label>
+          棋盘大小
+          <select id="sizeInput">
+            <option value="4">4 x 4 轻松局</option>
+            <option value="6">6 x 6 热身局</option>
+            <option value="8">8 x 8 标准局</option>
+            <option value="10">10 x 10 挑战局</option>
+            <option value="12">12 x 12 大脑燃烧</option>
+            <option value="14">14 x 14 超大局</option>
+            <option value="16">16 x 16 巨型局</option>
+            <option value="18">18 x 18 终极局</option>
+          </select>
+        </label>
+        <button id="createBtn" class="primary-btn">创建房间</button>
+        <button id="soloBtn" class="ghost-btn">一键单人测试</button>
+        <div class="join-line">
+          <input id="roomInput" maxlength="6" placeholder="输入房间号" />
+          <button id="joinBtn" class="ghost-btn">加入</button>
+        </div>
+        <button id="resumeBtn" class="text-btn hidden">回到上次房间</button>
+      </div>
+    </section>
+  </template>
+
+  <template id="room-template">
+    <section class="room-layout">
+      <aside class="side-panel">
+        <div class="room-code-card">
+          <span>房间号</span>
+          <strong id="roomCode"></strong>
+          <button id="copyCodeBtn" class="tiny-btn">复制</button>
+        </div>
+
+        <div class="turn-card" id="turnCard"></div>
+
+        <div class="players" id="players"></div>
+
+        <div class="settings-card" id="settingsCard"></div>
+
+        <div class="power-card" id="powerCard"></div>
+
+        <div class="emote-card">
+          <strong>快捷表情</strong>
+          <div id="emoteButtons" class="emote-buttons"></div>
+          <div id="emoteFeed" class="emote-feed"></div>
+        </div>
+      </aside>
+
+      <section class="board-panel">
+        <div class="board-toolbar">
+          <div>
+            <p class="eyebrow">Round</p>
+            <h2 id="gameTitle"></h2>
+          </div>
+          <div id="mainActions" class="main-actions"></div>
+        </div>
+        <div id="timerBar" class="timer-bar hidden"><span></span></div>
+        <div id="board" class="board"></div>
+        <div id="eventLog" class="event-log"></div>
+      </section>
+    </section>
+  </template>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+
