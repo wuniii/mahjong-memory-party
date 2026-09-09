@@ -312,12 +312,14 @@ function renderBoard() {
 
   board.innerHTML = state.cards.map((card) => {
     const disabled = !isMyTurn() || state.pendingMismatch || card.revealed || card.matched || state.status !== 'playing';
+    const image = card.asset ? `/assets/tiles/${encodeURIComponent(card.asset)}` : '';
     return `
       <button class="card ${card.revealed ? 'revealed' : ''} ${card.matched ? 'matched' : ''} ${card.hint ? 'hint' : ''} face-${card.color ?? 0}" data-index="${card.index}" ${disabled ? 'disabled' : ''} aria-label="第 ${card.index + 1} 张牌">
         <span class="card-inner">
           <span class="card-back"></span>
           <span class="card-face">
-            <span class="card-symbol"><b>${card.tile || ''}</b><span>${card.charm || ''}</span></span>
+            ${image ? `<img class="tile-art" src="${image}" alt="${escapeHtml(card.label || '麻将牌')}" />` : ''}
+            ${card.badge ? `<span class="tile-badge">${escapeHtml(card.badge)}</span>` : ''}
           </span>
         </span>
       </button>

@@ -77,6 +77,10 @@ npm run test:solo
 - 提示：高亮一张有用的线索牌；如果你已经翻开一张牌，会优先提示它的配对牌。
 - 冻结：下一位玩家跳过一次行动。
 
+## 麻将牌素材
+
+牌面与牌背使用 [FluffyStuff/riichi-mahjong-tiles](https://github.com/FluffyStuff/riichi-mahjong-tiles) 的 SVG 素材，采用 CC0 公共领域许可。完整说明见 `ASSETS.md`。
+
 ## 文件结构
 
 ```text
@@ -84,8 +88,10 @@ server.js              实时联机服务和游戏规则
 public/index.html      页面结构
 public/styles.css      可爱麻将主题样式
 public/app.js          前端交互逻辑
+public/assets/tiles    CC0 麻将牌 SVG 素材
 scripts/smoke-test.js  多人联机流程自测
 scripts/solo-test.js   单人开局流程自测
 DEPLOY.md              公网部署说明
+ASSETS.md              素材来源与许可说明
 ```
 

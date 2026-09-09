@@ -5,3 +5,5 @@ npm-debug.log*
 .vscode
 .idea
 mahjong-memory-party-upload.zip
+assets-tmp/
+mahjong-memory-party-upload/
