@@ -59,6 +59,7 @@ http://你的电脑IP:3000
 - `render.yaml`：Render 部署
 - `railway.json`：Railway 部署
 - `Dockerfile`：Docker 部署
+- `GITHUB_UPLOAD.md`：上传到 GitHub 的步骤
 - `/healthz`：健康检查地址
 
 详细步骤见：`DEPLOY.md`
@@ -87,3 +88,4 @@ scripts/smoke-test.js  多人联机流程自测
 scripts/solo-test.js   单人开局流程自测
 DEPLOY.md              公网部署说明
 ```
+

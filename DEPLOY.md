@@ -6,7 +6,7 @@
 
 适合最简单上线，能直接得到一个公开网址。
 
-1. 把本项目上传到 GitHub。
+1. 按 `GITHUB_UPLOAD.md` 把本项目上传到 GitHub。
 2. 打开 Render，选择 New > Blueprint。
 3. 选择这个 GitHub 仓库。
 4. Render 会读取 `render.yaml`。
@@ -20,7 +20,7 @@
 
 ## 推荐方式二：Railway
 
-1. 把本项目上传到 GitHub。
+1. 按 `GITHUB_UPLOAD.md` 把本项目上传到 GitHub。
 2. 在 Railway 创建新项目。
 3. 选择 Deploy from GitHub repo。
 4. 选择这个仓库。
@@ -57,3 +57,4 @@ PORT=8080 npm start
 - 适合朋友试玩和 MVP 验证。
 
 如果后续要长期运营，可以再加数据库和持久化房间/战绩。
+
