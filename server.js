@@ -93,25 +93,26 @@ function makeRoom({ hostPlayer, boardSize }) {
 }
 
 function mahjongFaces(count) {
-  const tiles = [
-    '🀇', '🀈', '🀉', '🀊', '🀋', '🀌', '🀍', '🀎', '🀏',
-    '🀐', '🀑', '🀒', '🀓', '🀔', '🀕', '🀖', '🀗',
-    '🀙', '🀚', '🀛', '🀜', '🀝', '🀞', '🀟', '🀠', '🀡',
-    '🀀', '🀁', '🀂', '🀃', '🀄', '🀅', '🀆', '🀫',
-    '🀢', '🀣', '🀤', '🀥', '🀦', '🀧', '🀨', '🀩', '🀪',
+  const tileAssets = [
+    ['Man1.svg', '一万'], ['Man2.svg', '二万'], ['Man3.svg', '三万'], ['Man4.svg', '四万'], ['Man5.svg', '五万'], ['Man6.svg', '六万'], ['Man7.svg', '七万'], ['Man8.svg', '八万'], ['Man9.svg', '九万'],
+    ['Pin1.svg', '一筒'], ['Pin2.svg', '二筒'], ['Pin3.svg', '三筒'], ['Pin4.svg', '四筒'], ['Pin5.svg', '五筒'], ['Pin6.svg', '六筒'], ['Pin7.svg', '七筒'], ['Pin8.svg', '八筒'], ['Pin9.svg', '九筒'],
+    ['Sou1.svg', '一索'], ['Sou2.svg', '二索'], ['Sou3.svg', '三索'], ['Sou4.svg', '四索'], ['Sou5.svg', '五索'], ['Sou6.svg', '六索'], ['Sou7.svg', '七索'], ['Sou8.svg', '八索'], ['Sou9.svg', '九索'],
+    ['Ton.svg', '东风'], ['Nan.svg', '南风'], ['Shaa.svg', '西风'], ['Pei.svg', '北风'], ['Haku.svg', '白板'], ['Hatsu.svg', '发财'], ['Chun.svg', '红中'],
   ];
-  const charms = ['糖', '桃', '星', '云', '竹', '茶', '月', '团', '喜', '福', '花', '铃'];
+  const badges = ['糖', '桃', '星', '云', '竹', '茶', '月', '团', '喜', '福', '花', '铃'];
   const faces = [];
   for (let i = 0; i < count; i += 1) {
+    const [asset, label] = tileAssets[i % tileAssets.length];
+    const badgeRound = Math.floor(i / tileAssets.length);
     faces.push({
-      tile: tiles[i % tiles.length],
-      charm: charms[Math.floor(i / tiles.length) % charms.length] + ((Math.floor(i / (tiles.length * charms.length)) || '') || ''),
+      asset,
+      label,
+      badge: badges[badgeRound % badges.length] + (Math.floor(badgeRound / badges.length) || ''),
       color: i % 8,
     });
   }
   return faces;
 }
-
 function shuffle(items) {
   for (let i = items.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -265,8 +266,9 @@ function serializeRoom(room, viewerId) {
         matched: card.matched,
         revealed: visible,
         hint: privateView.hintIndex === index,
-        tile: visible ? card.tile : null,
-        charm: visible ? card.charm : null,
+        asset: visible ? card.asset : null,
+        label: visible ? card.label : null,
+        badge: visible ? card.badge : null,
         color: visible ? card.color : null,
       };
     }),
