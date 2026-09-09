@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: mahjong-memory-party
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /healthz
+    autoDeployTrigger: commit

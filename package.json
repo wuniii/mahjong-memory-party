@@ -1,0 +1,23 @@
+{
+  "name": "mahjong-memory-party",
+  "version": "1.0.0",
+  "description": "可爱麻将主题的多人在线记忆翻翻乐小游戏",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node scripts/smoke-test.js",
+    "test:solo": "node scripts/solo-test.js"
+  },
+  "dependencies": {
+    "express": "latest",
+    "socket.io": "latest"
+  },
+  "devDependencies": {
+    "socket.io-client": "^4.8.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
