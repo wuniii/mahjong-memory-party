@@ -313,7 +313,7 @@ function renderBoard() {
   }
 
   const activeCards = state.cards.filter((card) => card.activeFlip);
-  if (state.boardSize >= 8 && activeCards.length) {
+  if (state.boardSize > 4 && activeCards.length) {
     const revealFocus = document.createElement('aside');
     revealFocus.id = 'revealFocus';
     revealFocus.className = 'reveal-focus';
