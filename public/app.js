@@ -67,7 +67,6 @@ function clearTimer() {
 
 function renderLanding() {
   clearTimer();
-  document.querySelector('#revealFocus')?.remove();
   state = null;
   app.innerHTML = '';
   app.append(landingTemplate.content.cloneNode(true));
@@ -295,7 +294,8 @@ function renderMainActions() {
 function renderBoard() {
   const board = document.querySelector('#board');
   board.style.setProperty('--size', state.boardSize);
-  document.querySelector('#revealFocus')?.remove();
+  const flipZoom = Math.min(3.4, Math.max(1.45, state.boardSize / 5));
+  board.style.setProperty('--flip-zoom', flipZoom);
 
   if (state.status === 'lobby') {
     board.innerHTML = `
@@ -312,32 +312,15 @@ function renderBoard() {
     return;
   }
 
-  const activeCards = state.cards.filter((card) => card.activeFlip);
-  if (state.boardSize > 4 && activeCards.length) {
-    const revealFocus = document.createElement('aside');
-    revealFocus.id = 'revealFocus';
-    revealFocus.className = 'reveal-focus';
-    revealFocus.setAttribute('aria-live', 'polite');
-    revealFocus.setAttribute('aria-label', '本回合翻开的牌');
-    revealFocus.innerHTML = `
-        <span class="reveal-focus-title">本回合翻开</span>
-        <span class="reveal-focus-cards">
-          ${activeCards.map((card) => `
-            <span class="reveal-focus-card">
-              <img src="/assets/tiles/${encodeURIComponent(card.asset)}" alt="${escapeHtml(card.label || '麻将牌')}" />
-              ${card.badge ? `<span class="reveal-focus-badge">${escapeHtml(card.badge)}</span>` : ''}
-            </span>
-          `).join('')}
-        </span>
-    `;
-    document.body.append(revealFocus);
-  }
-
   board.innerHTML = state.cards.map((card) => {
     const disabled = !isMyTurn() || state.pendingMismatch || card.revealed || card.matched || state.status !== 'playing';
     const image = card.asset ? `/assets/tiles/${encodeURIComponent(card.asset)}` : '';
+    const column = card.index % state.boardSize;
+    const row = Math.floor(card.index / state.boardSize);
+    const originX = column <= 1 ? 'left' : column >= state.boardSize - 2 ? 'right' : 'center';
+    const originY = row <= 1 ? 'top' : row >= state.boardSize - 2 ? 'bottom' : 'center';
     return `
-      <button class="card ${card.revealed ? 'revealed' : ''} ${card.activeFlip ? 'active-flip' : ''} ${card.matched ? 'matched' : ''} ${card.hint ? 'hint' : ''} face-${card.color ?? 0}" data-index="${card.index}" ${disabled ? 'disabled' : ''} aria-label="第 ${card.index + 1} 张牌${card.revealed && card.label ? `：${escapeHtml(card.label)}${card.badge ? `，${escapeHtml(card.badge)}` : ''}` : ''}">
+      <button class="card ${card.revealed ? 'revealed' : ''} ${card.activeFlip ? 'active-flip' : ''} ${card.matched ? 'matched' : ''} ${card.hint ? 'hint' : ''} face-${card.color ?? 0}" style="--flip-origin: ${originX} ${originY}" data-index="${card.index}" ${disabled ? 'disabled' : ''} aria-label="第 ${card.index + 1} 张牌${card.revealed && card.label ? `：${escapeHtml(card.label)}${card.badge ? `，${escapeHtml(card.badge)}` : ''}` : ''}">
         <span class="card-inner">
           <span class="card-back"></span>
           <span class="card-face">
