@@ -55,6 +55,12 @@ function waitFor(condition, label, timeout = 3000) {
   assert.equal(state.players.length, 1);
   assert.equal(state.currentPlayerId, state.selfId);
 
+  const flipped = await emitAck(socket, 'flipCard', { index: 0 });
+  assert.equal(flipped.ok, true, flipped.message);
+  await waitFor(() => state?.cards[0]?.activeFlip === true, 'active flip highlight');
+  assert.match(state.cards[0].asset, /\.svg$/);
+  assert.ok(state.cards[0].label, 'flipped card includes a readable label');
+
   socket.disconnect();
   console.log('Solo test passed: one player can create, ready, and start a game.');
 })().catch((error) => {
